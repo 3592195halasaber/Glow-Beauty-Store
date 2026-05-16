@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glow Beauty Products</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #fff7fa;
+      }
+
+      header {
+        width: 100%;
+        padding: 18px 7%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: #ff4f87;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: white;
+        background: linear-gradient(135deg, #ff4f87, #ff86ac);
+        padding: 12px 22px;
+        border-radius: 40px;
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.35s;
+        display: inline-block;
+      }
+
+      nav a:hover {
+        transform: translateY(-3px) scale(1.05);
+      }
+
+      .products-page {
+        padding: 70px 7%;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .section-title h1 {
+        font-size: 48px;
+        color: #ff4f87;
+        margin-bottom: 10px;
+      }
+
+      .section-title p {
+        color: #777;
+      }
+
+      .search-box {
+        max-width: 500px;
+        margin: 0 auto 45px auto;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 50px;
+        background: white;
+        outline: none;
+        font-size: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      #productList {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 28px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 25px;
+        overflow: hidden;
+        transition: 0.4s;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 18px 35px rgba(255, 79, 135, 0.15);
+      }
+
+      .card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+      }
+
+      .card-content {
+        padding: 20px;
+      }
+
+      .category {
+        display: inline-block;
+        padding: 6px 14px;
+        background: #ffe3ed;
+        color: #ff4f87;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .card-content h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+
+      .card-content p {
+        color: #666;
+        line-height: 1.7;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .price {
+        font-size: 22px;
+        font-weight: 700;
+        color: #ff4f87;
+        margin-bottom: 15px;
+      }
+
+      .buy-btn {
+        width: 100%;
+        border: none;
+        padding: 13px;
+        border-radius: 40px;
+        background: linear-gradient(135deg, #ff4f87, #ff8eb3);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .buy-btn:hover {
+        transform: scale(1.03);
+      }
+
+      footer {
+        text-align: center;
+        padding: 25px;
+        color: #777;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .section-title h1 {
+          font-size: 38px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">Glow Beauty </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+      </nav>
+    </header>
+
+    <section class="products-page">
+      <div class="section-title">
+        <h1>Our Products</h1>
+        <p>Best skincare & makeup collection </p>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="search"
+          placeholder="🔍 Search products..."
+          onkeyup="searchProducts()"
+        />
+      </div>
+
+      <div id="productList"></div>
+    </section>
+
+    <footer>© 2026 Glow Beauty Store — All Rights Reserved</footer>
+
+    <script>
+      const products = [
+        {
+          name: "Hydrating Face Cream",
+          category: "Skin Care",
+          price: "$22",
+          image:
+            "https://img1.exportersindia.com/product_images/bc-full/2023/11/34803/skin-whitening-cream-1570769530-5111919.jpg",
+          desc: "Rich cream that deeply hydrates and softens the skin.",
+        },
+
+        {
+          name: "Vitamin C Serum",
+          category: "Skin Care",
+          price: "$18",
+          image: "https://tse1.mm.bing.net/th/id/OIP.rZsskwWm7NxHVUHDIcSY3QHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          desc: "Brightens skin and reduces dark spots naturally.",
+        },
+
+        {
+          name: "Aloe Vera Gel",
+          category: "Skin Care",
+          price: "$14",
+          image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be",
+          desc: "Cooling gel that refreshes sensitive skin instantly.",
+        },
+
+        {
+          name: "Night Repair Cream",
+          category: "Skin Care",
+          price: "$26",
+          image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883",
+          desc: "Repairs tired skin overnight for a healthy glow.",
+        },
+
+        {
+          name: "Matte Lipstick",
+          category: "Makeup",
+          price: "$15",
+          image: "https://tse2.mm.bing.net/th/id/OIP.zJqFkOarOW837XRiy7A7nwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
+          desc: "Long-lasting lipstick with smooth matte finish.",
+        },
+
+        {
+          name: "BB Cream",
+          category: "Makeup",
+          price: "$20",
+          image: "https://tse4.mm.bing.net/th/id/OIP.0cSdIp4bVzoG2xPWY54aygHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          desc: "Lightweight cream that evens skin tone beautifully.",
+        },
+
+        {
+          name: "Glow Highlighter",
+          category: "Makeup",
+          price: "$17",
+          image: "https://tse1.mm.bing.net/th/id/OIP.QKwuy4070A3Fsv0JJCvLgAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          desc: "Soft shimmer highlighter for radiant glowing skin.",
+        },
+
+        {
+          name: "Waterproof Mascara",
+          category: "Makeup",
+          price: "$19",
+          image: "https://herbeautyplug.com/wp-content/uploads/2024/07/waterproof-mascara-scaled.jpg",
+          desc: "Defines lashes perfectly with waterproof formula.",
+        },
+      ];
+
+      function displayProducts(arr) {
+        let output = "";
+
+        arr.forEach((product) => {
+          output += `
+
+<div class="card">
+
+<img src="${product.image}">
+
+<div class="card-content">
+
+<div class="category">
+${product.category}
+</div>
+
+<h3>${product.name}</h3>
+
+<p>${product.desc}</p>
+
+<div class="price">
+${product.price}
+</div>
+
+<button class="buy-btn">
+Add To Cart
+</button>
+
+</div>
+
+</div>
+
+`;
+        });
+
+        document.getElementById("productList").innerHTML = output;
+      }
+
+      function searchProducts() {
+        let value = document.getElementById("search").value.toLowerCase();
+
+        let filtered = products.filter((product) =>
+          product.name.toLowerCase().includes(value),
+        );
+
+        displayProducts(filtered);
+      }
+
+      displayProducts(products);
+    </script>
+  </body>
+</html>
